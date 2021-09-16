@@ -1,0 +1,32 @@
+{
+    "name": "avxman/breadcrumbs",
+    "description": "The module breadcrumbs for laravel >=8.0",
+    "version": "1.0.0",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexandr Kheyder",
+            "email": "downloadsite.x@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Avxman\\Breadcrumb\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Avxman\\Breadcrumb\\Providers"
+            ],
+            "aliases": {
+                "Breadcrumbs": "Avxman\\Breadcrumb\\Facades"
+            },
+        }
+    },
+    "require": {
+        "php": ">=8.0"
+    }
+}

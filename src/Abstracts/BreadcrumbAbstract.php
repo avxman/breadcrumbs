@@ -48,13 +48,13 @@ abstract class BreadcrumbAbstract
      * Шаблон списка
      * @var string $nameViewItems
      */
-    protected string $nameViewItems = 'vendor.breadcrumb.items';
+    protected string $nameViewItems = 'vendor.breadcrumbs.items';
 
     /**
      * Шаблон ссылки
      * @var string $nameViewItem
      */
-    protected string $nameViewItem = 'vendor.breadcrumb._item';
+    protected string $nameViewItem = 'vendor.breadcrumbs._item';
 
     /**
      * Конвертируем строку в коллекцию из таблицы
@@ -76,7 +76,8 @@ abstract class BreadcrumbAbstract
      * Получаем выборку из таблицы и получаем одинчную запись
      */
     protected function getModel(string $nameModel, int $id) : Model{
-        return $this->modelItem = $this->model::whereModelClass($nameModel)->whereModelId($id)->first();
+        $model = $this->model::whereModelClass($nameModel)->whereModelId($id)->first();
+        return $this->modelItem = $model?:new $nameModel;
     }
 
     /**
@@ -95,6 +96,7 @@ abstract class BreadcrumbAbstract
         $viewItems = view($this->nameViewItems);
         $viewItem = view($this->nameViewItem);
         $this->items->each(function ($item) use ($viewItem){
+            if(!$item) return true;
             $this->result->push($viewItem->with($item)->render());
         });
         return $viewItems->with(['items'=>$this->result->join('')])->render();

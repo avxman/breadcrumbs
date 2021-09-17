@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Avxman\Breadcrumb\Classes\BreadcrumbClass all()
  * @method static \Avxman\Breadcrumb\Classes\BreadcrumbClass exceptLast()
  * @method static \Avxman\Breadcrumb\Classes\BreadcrumbClass onlyLast()
- * @method static \Avxman\Breadcrumb\Classes\BreadcrumbClass setView(string $nameViewItems = 'vendor.breadcrumb.items', string $nameViewItem = 'vendor.breadcrumb._item')
+ * @method static \Avxman\Breadcrumb\Classes\BreadcrumbClass setView(string $nameViewItems = 'vendor.breadcrumbs.items', string $nameViewItem = 'vendor.breadcrumbs._item')
  * @method static \Avxman\Breadcrumb\Classes\BreadcrumbClass setAddHome(bool $add = true)
  * @method static \Illuminate\Support\Collection toCollection()
  * @method static array toArray()

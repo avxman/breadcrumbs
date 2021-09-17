@@ -129,10 +129,10 @@ class BreadcrumbClass extends BreadcrumbAbstract implements BreadcrumbInterface,
     {
         if (!$items->count()) return false;
         $item = $this->getModel($model::class, $model->id);
-        if($item) {
+        if($item && get_class($item) !== get_class($model)) {
             $item->breadcrumb = $this->convertToContext($items, true)[0];
             return $item->save();
         }
-        return $this->model::create(collect($this->convertToModel($model))->merge($this->convertToContext($items))->toArray());
+        return (bool)$this->model::create(collect($this->convertToModel($model))->merge($this->convertToContext($items))->toArray());
     }
 }

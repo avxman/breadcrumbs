@@ -1,3 +1,5 @@
-<ul>
-    {!! $items !!}
-</ul>
+@unless(!$items)
+    <ul>
+        {!! $items !!}
+    </ul>
+@endif

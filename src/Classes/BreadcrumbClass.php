@@ -65,7 +65,7 @@ class BreadcrumbClass extends BreadcrumbAbstract implements BreadcrumbInterface,
      * @param string $nameViewItem
      * @return self
      */
-    public function setView(string $nameViewItems = 'vendor.breadcrumb.items', string $nameViewItem = 'vendor.breadcrumb._item'): self
+    public function setView(string $nameViewItems = 'vendor.breadcrumbs.items', string $nameViewItem = 'vendor.breadcrumbs._item'): self
     {
         $this->nameViewItems = $nameViewItems;
         $this->nameViewItem = $nameViewItem;

@@ -127,7 +127,7 @@ class BreadcrumbClass extends BreadcrumbAbstract implements BreadcrumbInterface,
      */
     public function save(Collection $items, Model $model, array $data = []): bool
     {
-        if (!$items->count()) return false;
+        if (!$items->count() || !($model->id??false)) return false;
         $item = $this->getModel($model::class, $model->id);
         if($item && get_class($item) !== get_class($model)) {
             $item->breadcrumb = $this->convertToContext($items, true)[0];

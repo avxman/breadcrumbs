@@ -6,6 +6,11 @@
 composer require avxman/breadcrumbs
 ```
 
+## Настройка модуля
+После установки модуля не забываем объязательно запустить команды artisan
+`php artisan vendor:publish --tag="avxman-breadcrumbs-migrate"` и после `php artisan migrate`.
+Это установит таблицу хлебных крошек для получения и сохранения данных.
+
 ### Команды artisan
 - Выгружаем все файлы
 ```dotenv
@@ -24,7 +29,24 @@ php artisan vendor:publish --tag="avxman-breadcrumbs-model"
 php artisan vendor:publish --tag="avxman-breadcrumbs-view"
 ```
 
-### Примеры методов как получить результаты
+## Методы
+### Инициализация или сохранение хлебных крошек (очерёдность вызова метода - первичная)
+- **`init()`** - инициализация хлебных крошек по выборке модели и id
+- **`save()`** - сохраняем список ссылок хлебных крошек определённой модельки и id (после вызова остальные методы не вызываются)
+### Дополнительные (очерёдность вызова метода - второстепенная)
+- **`all()`** - получаем все ссылки хлебных крошек инициализированной модельки
+- **`exceptLast()`** - получаем все родительские ссылки за исключением домашней
+- **`onlyLast()`** - получаем последнюю ссылку
+- **`setView`** - перезаписываем шаблон вывода хлебных крошек
+- **`setAddHome()`** - выводить домашнюю ссылку
+### Вывод (очерёдность вызова метода - последняя)
+- **`toCollection()`** - получаем результат в виде коллекции
+- **`toArray()`** - получаем результат в виде массива
+- **`toJson()`** - получаем результат в виде json
+- **`toHtml()`** - получаем результат в виде html
+
+
+### Примеры получения результатов
 ```injectablephp
 use App\Models\User;
 use Avxman\Breadcrumb\Facades\BreadcrumbFacade;
@@ -44,4 +66,17 @@ BreadcrumbFacade::save(
     ),
     User::first());
 $breadcrumbs = BreadcrumbFacade::init(User::class, 1)->toHtml();
+```
+Вызов во views
+```injectablephp
+{!! BreadcrumbFacade::init(User::class, 1)->all()->toHtml() !!}
+{!! BreadcrumbFacade::init(User::class, 1)->toJson(); !!}
+{!! BreadcrumbFacade::init(User::class, 1)->toHtml(); !!}
+{{ BreadcrumbFacade::save(
+    collect()->push(
+        ['url'=>'https://google.ua/', 'name'=>'Google'],
+        ['url'=>null, 'name'=>'NEW']
+    ),
+    User::first());
+}}
 ```

@@ -96,8 +96,7 @@ abstract class BreadcrumbAbstract
         $viewItems = view($this->nameViewItems);
         $viewItem = view($this->nameViewItem);
         $this->items->each(function ($item) use ($viewItem){
-            if(!$item) return true;
-            $this->result->push($viewItem->with($item)->render());
+            if($item) $this->result->push($viewItem->with($item)->render());
         });
         return $viewItems->with(['items'=>$this->result->join('')])->render();
     }
